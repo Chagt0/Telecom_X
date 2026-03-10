@@ -12,7 +12,7 @@ Generar un informe final con conclusiones y recomendaciones estratégicas.
 
 Documentos
 Dataset original en formato JSON
-Telecom-X-Alura.ipynb 
+Alura_TelecomX.ipynb 
 Informe_Final.md
 README.md
 

@@ -1,84 +1,120 @@
-# Informe Final - Análisis de Evasión de Clientes en Telecom-X
+Informe Final – Análisis de Evasión de Clientes (Churn) en Telecom-X
+Introducción
 
-## Introducción
+El presente informe analiza el fenómeno de evasión de clientes (Churn) en la empresa ficticia Telecom-X, con el propósito de identificar los factores que influyen en la cancelación del servicio por parte de los usuarios.
 
-El presente informe tiene como objetivo analizar la evasión de clientes (*Churn*) en la empresa ficticia **Telecom-X**.  
-El churn es un problema recurrente en las compañías de telecomunicaciones, ya que implica la pérdida de clientes hacia la competencia, lo que se traduce en disminución de ingresos y mayores costos de adquisición de nuevos usuarios.  
+En el sector de las telecomunicaciones, la pérdida de clientes representa un desafío estratégico importante, ya que implica una reducción directa en los ingresos y un incremento en los costos asociados a la adquisición de nuevos clientes. Por esta razón, comprender los patrones de cancelación permite a las organizaciones diseñar estrategias de retención más efectivas.
 
-Este análisis busca identificar los patrones de cancelación, variables críticas y factores de riesgo que influyen en la evasión, con el fin de proponer estrategias que permitan reducirla.
+El objetivo principal de este análisis es identificar patrones de comportamiento, variables críticas y factores de riesgo asociados al churn, con el fin de generar recomendaciones que contribuyan a disminuir la evasión y mejorar la fidelización de los clientes.
 
----
+Limpieza y Tratamiento de Datos
+1. Extracción de datos
 
-## Limpieza y Tratamiento de Datos
+El proceso comenzó con la importación de un dataset en formato JSON que contiene información relacionada con los clientes de Telecom-X.
+Estos datos fueron obtenidos desde un repositorio en GitHub y posteriormente cargados en un DataFrame utilizando la librería Pandas de Python.
 
-1. **Extracción**  
-   - Se utilizó un archivo JSON con los registros de clientes, importado directamente desde GitHub.  
-   - Los datos fueron normalizados a un `DataFrame` de Pandas.  
+2. Transformación de datos
 
-2. **Transformación**  
-   - Expansión de campos anidados en subcolumnas (ejemplo: `customer`, `phone`, `account`).  
-   - Normalización de nombres de columnas a minúsculas y traducción al español.  
-   - Conversión de variables binarias a formato numérico (`0` = No, `1` = Sí, `-1` = No definido).  
-   - Traducción de categorías de inglés a español (ejemplo: *Month-to-month* → *Mes a mes*).  
-   - Creación de una variable derivada: **cuenta.cuentas_diarias**, a partir de `cuenta.cargos_mensuales / 30`.  
+Durante esta etapa se realizaron diversas tareas para preparar el conjunto de datos para su análisis:
 
-3. **Manejo de inconsistencias**  
-   - Revisión de nulos y valores vacíos.  
-   - Conversión de columnas numéricas (`cargos_totales`, `cargos_mensuales`) a formato `float`.  
+Expansión de campos anidados en múltiples columnas (por ejemplo: customer, phone, account).
 
----
+Normalización de nombres de columnas a minúsculas para mantener consistencia.
 
-## Análisis Exploratorio de Datos (EDA)
+Traducción de variables categóricas del inglés al español (por ejemplo, Month-to-month → Mes a mes).
 
-1. **Distribución general del churn**  
-   - Aproximadamente **27% de los clientes cancelaron**, mientras que un 73% permanecen activos.  
+Conversión de variables binarias a formato numérico (0 = No, 1 = Sí, -1 = No definido).
 
-2. **Variables categóricas**  
-   - **Tipo de contrato**: Los clientes con contrato *Mes a mes* presentan la tasa de cancelación más alta.  
-   - **Método de pago**: El pago con *Cheque electrónico* se asocia a mayor cancelación, mientras que *Transferencia bancaria automática* muestra menor churn.  
-   - **Género**: No se identificaron diferencias significativas entre hombres y mujeres.  
+Creación de una variable derivada denominada cuenta.cargos_diarios, calculada a partir de la división entre los cargos mensuales y 30 días.
 
-3. **Variables numéricas**  
-   - **Antigüedad**: Los clientes con menor tiempo en la compañía tienen más probabilidades de cancelar.  
-   - **Cargos mensuales**: Los cargos más altos se relacionan con mayor churn, mientras que los cargos acumulados (*cargos_totales*) más bajos indican clientes recientes que abandonan pronto.  
+3. Manejo de inconsistencias
 
-4. **Visualizaciones**  
-   - Gráficos de pastel y barras para proporción de churn.  
-   - Barras apiladas para distribución de cancelación según contrato y método de pago.  
-   - Histogramas con `hue` de cancelación para cargos y antigüedad.  
+Con el fin de garantizar la calidad del análisis, se realizaron procesos adicionales de depuración de datos, tales como:
 
----
+Identificación y revisión de valores nulos o vacíos.
 
-## Conclusiones e Insights
+Conversión de variables numéricas, como cargos_totales y cargos_mensuales, al tipo de dato float.
 
-- El **contrato de corto plazo (mes a mes)** es un fuerte predictor de evasión.  
-- El **método de pago electrónico** incrementa la probabilidad de churn, posiblemente por falta de fidelización.  
-- Los clientes con **antigüedad baja (< 12 meses)** cancelan con mayor frecuencia.  
-- Los clientes con **cargos mensuales elevados** también presentan una mayor propensión a cancelar.  
+Verificación de coherencia en los valores categóricos.
 
-Estos hallazgos permiten comprender mejor los perfiles de riesgo y anticipar la evasión de clientes.
+Estas acciones permitieron construir un dataset limpio y estructurado, adecuado para el análisis exploratorio.
 
----
+Análisis Exploratorio de Datos (EDA)
 
-## Recomendaciones
+El Análisis Exploratorio de Datos (EDA) se llevó a cabo con el objetivo de comprender la distribución de las variables y detectar posibles relaciones entre ellas y el churn.
 
-1. **Fidelización de clientes nuevos**  
-   - Implementar programas de bienvenida, beneficios iniciales y ofertas de permanencia para clientes con menos de 12 meses.  
+Distribución general del churn
 
-2. **Contratos más atractivos a largo plazo**  
-   - Promover planes anuales o bianuales con descuentos o beneficios exclusivos.  
+El análisis mostró que aproximadamente el 27 % de los clientes han cancelado el servicio, mientras que el 73 % permanecen activos, lo que evidencia un nivel de evasión considerable para la compañía.
 
-3. **Revisión de cargos mensuales**  
-   - Analizar si los planes de mayor costo generan una percepción de sobreprecio que incentive la fuga.  
+Análisis de variables categóricas
 
-4. **Optimización de métodos de pago**  
-   - Incentivar el uso de pagos automáticos por transferencia o tarjeta, que muestran menores tasas de churn.  
+Tipo de contrato:
+Los clientes con contratos mes a mes presentan la mayor tasa de cancelación, lo que sugiere que la flexibilidad contractual facilita la salida del servicio.
 
----
+Método de pago:
+El uso de cheque electrónico se asocia con mayores tasas de cancelación, mientras que los pagos automáticos mediante transferencia bancaria presentan menor churn.
 
-## Archivo y reproducibilidad
+Género:
+No se encontraron diferencias significativas en las tasas de cancelación entre clientes hombres y mujeres.
 
-Este informe se generó a partir del notebook `Telecom-X-Alura.ipynb`, utilizando Python, Pandas, Matplotlib y Seaborn.  
-Todos los gráficos y análisis pueden reproducirse ejecutando dicho notebook.  
+Análisis de variables numéricas
 
----
+Antigüedad del cliente:
+Los clientes con menor tiempo en la compañía presentan una mayor probabilidad de cancelar el servicio.
+
+Cargos mensuales:
+Se observa que valores más altos de cargos mensuales se relacionan con una mayor probabilidad de churn.
+
+Cargos totales:
+Valores bajos en esta variable suelen corresponder a clientes recientes que cancelan el servicio en etapas tempranas.
+
+Visualización de datos
+
+Para facilitar la interpretación de los resultados, se utilizaron diferentes tipos de gráficos mediante Matplotlib y Seaborn:
+
+Gráficos de pastel y barras para visualizar la proporción de churn.
+
+Barras apiladas para analizar la relación entre churn y variables categóricas como contrato o método de pago.
+
+Histogramas diferenciados por churn para evaluar la distribución de cargos y antigüedad.
+
+Conclusiones e Insights
+
+A partir del análisis realizado, se identificaron varios factores clave asociados a la evasión de clientes:
+
+Los contratos de corto plazo (mes a mes) presentan una mayor probabilidad de cancelación.
+
+El método de pago mediante cheque electrónico se asocia con mayores tasas de churn.
+
+Los clientes con antigüedad menor a 12 meses muestran mayor tendencia a abandonar el servicio.
+
+Los cargos mensuales elevados incrementan la probabilidad de cancelación.
+
+Estos hallazgos permiten identificar perfiles de clientes con mayor riesgo de evasión, lo cual resulta valioso para implementar estrategias de retención más efectivas.
+
+Recomendaciones
+
+Con base en los resultados obtenidos, se proponen las siguientes acciones estratégicas:
+
+1. Estrategias de fidelización para nuevos clientes
+
+Desarrollar programas de bienvenida, incentivos iniciales y beneficios exclusivos para clientes durante su primer año de servicio, con el fin de fortalecer su permanencia en la compañía.
+
+2. Promoción de contratos a largo plazo
+
+Diseñar planes con compromisos anuales o bianuales que incluyan descuentos, beneficios adicionales o servicios complementarios.
+
+3. Evaluación de la estructura de precios
+
+Analizar los planes con cargos mensuales más elevados, con el objetivo de identificar posibles ajustes que mejoren la percepción de valor por parte del cliente.
+
+4. Incentivar métodos de pago automáticos
+
+Promover el uso de pagos automáticos con tarjeta o transferencia bancaria, ya que estos métodos presentan menores tasas de cancelación.
+
+Reproducibilidad del análisis
+
+El presente informe fue elaborado a partir del notebook Telecom-X-Alura.ipynb, desarrollado en Google Colab utilizando Python, junto con las librerías Pandas, NumPy, Matplotlib y Seaborn.
+
+Todos los análisis y visualizaciones pueden reproducirse ejecutando dicho notebook.

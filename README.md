@@ -32,10 +32,10 @@ Los clientes con antigüedad baja < 12 meses cancelan más frecuentemente.
 Los cargos mensuales altos se asocian a mayor evasión.
 
 Reproducibilidad
-Clonar el repositorio: git clone https://github.com/tuusuario/Telecom-X-Alura.git cd Telecom-X-Alura
+Clonar el repositorio: git clone https://github.com/tuusuario/Alura_TelecomX.git cd Telecom-X-Alura
 
 Instalar dependencias: pip install -r requirements.txt
-Abrir el notebook: jupyter notebook notebooks/Telecom-X-Alura.ipynb
+Abrir el notebook: colab/Alura_TelecomX.ipynb
 
 Autor
 Proyecto desarrollado por Santiago Mesa participante del programa Alura ONE - Data Science.
